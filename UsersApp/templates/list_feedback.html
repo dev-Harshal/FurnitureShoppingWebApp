@@ -1,0 +1,125 @@
+
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+        .custom-navbar h1{
+            color: rgb(245, 245, 245) !important;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .custom-navbar a{
+            color: rgb(245, 245, 245) !important;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 20px;
+        }
+        img {
+            height: 80px;
+            width: 80px;
+          border-radius: 8px 8px 8px 8px; /* Rounded corners on the right side */
+      }
+      .para{
+        font-size: 20px;
+      }
+      .anchor{
+        font-size: 20px;
+      }
+
+    </style>
+</head>
+<body>
+    <div class="container-fluid custom-navbar" style="background-color: #0d523e;">
+        <h1 class="text-center pt-4">Easy Living Furniture</h1>
+
+        <div class="row">
+            <div class="col-6">
+                <ul class="nav justify-content-start">
+                    <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="{% url "inventory" %}">Inventory</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url "list_feedback" %}">Feedbacks</a>
+                    </li>
+
+                  </ul>
+            </div>
+            <div class="col-6">
+                <ul class="nav justify-content-end">
+                  {% if request.user.is_authenticated %}
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url "logout-page" %}">Logout: {{request.user.full_name|capfirst}}</a>
+                  </li>
+                  {% else %}
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url "login-page" %}"><span><i class="fa-solid fa-user"></i></span> LOGIN</a>
+                  </li>
+                  {% endif %}    
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <div class="container pt-2">
+      <h2 class="text-center p-4"><i class="fa-solid fa-message"></i> FEEDBACKS</h2>
+      {% if messages %}
+      <ul class="messages">
+          {% for message in messages %}
+          {% if message.tags == "error" %}
+          <div class="container-fluid pt-2">
+              <div class="alert alert-danger text-center" role="alert">
+                  <h5> {{ message }} </h5>
+              </div>
+          </div>
+          {% else %}
+          <div class="container-fluid pt-2">
+              <div class="alert alert-success text-center" role="alert">
+                  <h5> {{ message }} </h5>
+              </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+      </ul>
+      {% endif %}
+
+      <div class="row align-items-center shadow-lg p-3 mb-5 bg-white rounded pt-4">
+
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Feedback</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for obj in feedbacks  %}
+      
+                <tr>
+                  <td>{{obj.id}}</td>
+                  <td>{{obj.name}}</td>
+                  <td>{{obj.email}}</td>
+                  <td>{{obj.feedback}}.</td>
+                  
+                  
+                </tr>
+                
+                {% endfor %}
+            </tbody>
+          </table>
+
+        </div>
+
+    </div>
+
+    <script src="https://kit.fontawesome.com/4dd23f7737.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
