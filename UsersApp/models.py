@@ -9,7 +9,7 @@ class User(AbstractUser):
     full_name = models.CharField(max_length=100,null=True,blank=True)
     phone_number = models.CharField(max_length=100,null=True,blank=True)
     email = models.EmailField(unique=True)
-    role = models.CharField(max_length=6,null=True, blank=True,default="User")
+    role = models.CharField(max_length=6,null=True, blank=True,default="User",choices=(("User",'User'),("Staff","Staff")))
 
     USERNAME_FIELD = 'email'
     
