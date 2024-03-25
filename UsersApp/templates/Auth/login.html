@@ -38,7 +38,25 @@
 					<span class="login100-form-title p-b-43">
 						LOGIN TO YOUR ACCOUNT
 					</span>
-					
+					{% if messages %}
+      <ul class="messages">
+          {% for message in messages %}
+          {% if message.tags == "error" %}
+          <div class="container-fluid pt-2">
+              <div class="alert alert-danger text-center" role="alert">
+                  <h5> {{ message }} </h5>
+              </div>
+          </div>
+          {% else %}
+          <div class="container-fluid pt-2">
+              <div class="alert alert-success text-center" role="alert">
+                  <h5> {{ message }} </h5>
+              </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+      </ul>
+      {% endif %}
 					
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
 						<input class="input100" type="text" name="email">

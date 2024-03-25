@@ -9,7 +9,28 @@
 
     <!-- Font Icon -->
     <link rel="stylesheet" href="{% static "SignUp/fonts/material-icon/css/material-design-iconic-font.min.css" %}">
-
+<!--===============================================================================================-->	
+<link rel="icon" type="image/png" href="{% static "Login/images/icons/favicon.ico" %}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static "Login/vendor/bootstrap/css/bootstrap.min.css" %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static "Login/fonts/font-awesome-4.7.0/css/font-awesome.min.css" %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static "Login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css" %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static "Login/vendor/animate/animate.css" %}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{% static "Login/vendor/css-hamburgers/hamburgers.min.css" %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static "Login/vendor/animsition/css/animsition.min.css" %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static "Login/vendor/select2/select2.min.css" %}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{% static "Login/vendor/daterangepicker/daterangepicker.css" %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static "Login/css/util.css" %}">
+	<link rel="stylesheet" type="text/css" href="{% static "Login/css/main.css" %}">
+<!--===============================================================================================-->
     <!-- Main css -->
     <link rel="stylesheet" href="{% static "SignUp/css/style.css" %}">
 </head>
@@ -23,6 +44,25 @@
                     <form method="POST" id="signup-form" class="signup-form">
                         {% csrf_token %}
                         <h2 class="form-title">Create account</h2>
+                        {% if messages %}
+      <ul class="messages">
+          {% for message in messages %}
+          {% if message.tags == "error" %}
+          <div class="container-fluid pt-2">
+              <div class="alert alert-danger text-center" role="alert">
+                  <h5> {{ message }} </h5>
+              </div>
+          </div>
+          {% else %}
+          <div class="container-fluid pt-2">
+              <div class="alert alert-success text-center" role="alert">
+                  <h5> {{ message }} </h5>
+              </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+      </ul>
+      {% endif %}
                         <div class="form-group">
                             <input type="text" class="form-input" name="full_name" id="name" placeholder="Your Name"/ required>
                         </div>

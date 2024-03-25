@@ -153,10 +153,11 @@ def loginUser(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         user = authenticate(email=email, password=password)
-        if user is not None:
+        if user is not None and user.role == "User":
             login(request, user)
             return redirect('categories')
         else:
+            messages.error(request,"Invalid Email or Password.")
             return redirect('login-page')
     else:
         return render(request, 'Auth/login.html')
@@ -172,8 +173,10 @@ def signUpUser(request):
         password = request.POST.get('password')
         re_password = request.POST.get('re_password')
         if User.objects.filter(email=email).exists():
+            messages.error(request,"Invalid Email Already Exists.")
             return redirect('signup-page')
         if password != re_password:
+            messages.error(request,"Password Not Matching.")
             return redirect('signup-page')
         user = User(full_name=full_name, email=email, password=password,username=email)
         user.save()
@@ -188,14 +191,21 @@ def forgot_password(request):
         password = request.POST.get('password')
         re_password = request.POST.get('re_password')
         if User.objects.filter(email=email).exists():
+            user = User.objects.get(email=email)
+            if password!=re_password or user.role == "Staff" :
+                messages.error(request,"Password Not Matching or Invalid User.")
+                return redirect('forgot_password')
             try:
-                user = User.objects.get(email=email)
+               
                 user.set_password(re_password)
                 user.save()
                 return redirect('login-page')
             except:
                 return redirect('forgot_password')
-        return redirect('forgot_password')
+        else:
+            messages.error(request,"User Not Found.")
+            return redirect('forgot_password')
+        
     else:
         return render(request, 'Auth/forgot_password.html')
         

@@ -24,7 +24,7 @@ class User(AbstractUser):
 
 class Category(models.Model):
     title = models.CharField(max_length=100,null=True,blank=True)
-    description = models.CharField(max_length=100,null=True,blank=True)
+    description = models.CharField(max_length=300,null=True,blank=True)
     image = models.ImageField(null=True,blank=True,upload_to='CategoryImages/')
 
     def __str__(self):
@@ -40,7 +40,7 @@ class Product(models.Model):
 
     prod_id = models.BigIntegerField(unique=True,default=0,null=True,blank=True)
     prod_title = models.CharField(max_length=100,null=True,blank=True)
-    prod_description = models.CharField(max_length=100,null=True,blank=True)
+    prod_description = models.CharField(max_length=200,null=True,blank=True)
     prod_image = models.ImageField(null=True,blank=True,upload_to='ProductImages/')
     prod_price = models.IntegerField(null=True,blank=True)
 
